@@ -44,6 +44,6 @@ func handler(req events.APIGatewayProxyRequest) (*events.APIGatewayProxyResponse
 	case "DELETE":
 		return handlers.DeleteUser(req, tableName, dynaClient)
 	default:
-		return handlers.UnhandleMethod()
+		return handlers.UnhandledMethod()
 	}
 }
