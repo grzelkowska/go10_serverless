@@ -20,7 +20,7 @@ var (
 func main() {
 	region := os.Getenv("AWS_REGION")
 	awsSession, err := session.NewSession(&aws.Config{
-		Region: aws.String(region)},)
+		Region: aws.String(region)})
 
 	if err != nil {
 		return
@@ -30,11 +30,11 @@ func main() {
 	lambda.Start(handler)
 }
 
+// const tableName = "LambdaInGoUser"
+const tableName = "go-serverless00"
 
-const tableName = "LambdaInGoUser"
-
-func handler(req events.APIGatewayProxyRequest) (*events.APIGatewayProxyResponse, error){
-	switch req.HTTPMethod{
+func handler(req events.APIGatewayProxyRequest) (*events.APIGatewayProxyResponse, error) {
+	switch req.HTTPMethod {
 	case "GET":
 		return handlers.GetUser(req, tableName, dynaClient)
 	case "POST":
@@ -47,3 +47,10 @@ func handler(req events.APIGatewayProxyRequest) (*events.APIGatewayProxyResponse
 		return handlers.UnhandledMethod()
 	}
 }
+
+
+// curl --header "Content-Type: application/json" --request POST --data '{"email": "grzelk@grze.lk", "firstName": "Grzelk", "lastName": "Lee"}' https://ccjigwgxf7.execute-api.ap-northeast-2.amazonaws.com/staging
+// curl -X GET https://https://ccjigwgxf7.execute-api.ap-northeast-2.amazonaws.com/staging
+// curl -X GET https://ccjigwgxf7.execute-api.ap-northeast-2.amazonaws.com/staging\?email\=grzelk@grze.lk
+// curl --header "Content-Type: application/json" --request PUT --data '{"email": "grzelk@grze.lk", "firstName": "Phil", "lastName": "Rhee"}' https://ccjigwgxf7.execute-api.ap-northeast-2.amazonaws.com/staging
+// curl -X DELETE https://ccjigwgxf7.execute-api.ap-northeast-2.amazonaws.com/staging\?email\=grzelk@grze.lk  
